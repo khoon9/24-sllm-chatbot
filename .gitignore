@@ -3,7 +3,6 @@ env/
 
 # langchain/__pycache__
 # files/
-# .cache/
 .streamlit/secrets.toml
 
 # falcon.bin
