@@ -1,5 +1,7 @@
 # 24-sllm-chatbot
 
+- 향후 사용 가능성이 있는 모든 의존성 설정을 포함하여 기재하였음
+
 0. python: 3.11
 1. LangChain 의존성
 
