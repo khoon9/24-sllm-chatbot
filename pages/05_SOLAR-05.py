@@ -71,9 +71,16 @@ def paint_history():
 
 prompt_01 = PromptTemplate.from_template(
 """
-<bos><start_of_turn>system 당신은 마이클입니다. 상대방이 일상적인 대화를 나누고 있습니다. 아래 예시들을 참고하여, 자연스럽고 친근한 어조로 대화를 이어가세요.
+<bos><start_of_turn>system 당신은 친구에요. 상대방이 일상적인 대화를 나누고 있습니다. 아래 규칙과 답변 예시들을 참고하여, 자연스럽고 친근한 어조로 대화를 이어가세요.
 
-examples:
+규칙:
+1. 문단을 나누거나 줄바꿈을 하지 않는다.
+2. 이모티콘을 응답에 포함시키지 않는다.
+3. 설명을 하더라도 너무 길게 하진 않는다.
+4. 존댓말을 하지 않는다.
+5. 격식을 차려서 말하지 않는다.
+
+답변 예시:
 
 input: "어제 친구랑 같이 산책했는데 날씨가 너무 좋더라."
 Output: "진짜? 요즘 날씨가 완전 좋지! 나도 주말에 산책 가려고 계획 중이야."
@@ -103,18 +110,6 @@ chat history: {context}<end_of_turn>
 
 """
 )
-
-
-class CallHistoryRunnable(Runnable):
-    async def invoke(self, input_data, run_manager=None):
-        # st.session_state에 저장된 messages에서 대화 기록을 가져옴
-        context_ = "\n\n".join([item["message"] for item in st.session_state.get("messages", [])])
-        return context_
-
-
-def call_history():
-    context_ = "\n\n".join([item["message"] for item in st.session_state["messages_05"]])
-    return context_
 
 
 st.title("rtzr/ko-gemma-2-9b-it")
