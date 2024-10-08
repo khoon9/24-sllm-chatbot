@@ -18,7 +18,7 @@ if "messages_05" not in st.session_state:
 
 
 st.set_page_config(
-    page_title="koo-gemma2-9B from 허깅페이스",
+    page_title="ko-gemma2-9B from 허깅페이스",
     page_icon="📃",
 )
 
@@ -47,29 +47,6 @@ st.write("모델 불러오기 시작")
 llm = load_llm_model()
 st.write("모델이 불러왔습니다.")
 
-# class ChatCallbackHandler(BaseCallbackHandler):
-#     message = ""
-
-#     def on_llm_start(self, *args, **kwargs):
-#         self.message_box = st.empty()
-
-#     def on_llm_end(self, *args, **kwargs):
-#         save_message(self.message, "ai")
-
-#     def on_llm_new_token(self, token, *args, **kwargs):
-#         self.message += token
-#         self.message_box.markdown(self.message)
-
-
-# llm = ChatOllama(
-#     model="bnksys/yanolja-eeve-korean-instruct-10.8b",
-#     temperature=0.1,
-#     streaming=True,
-#     callbacks=[
-#         ChatCallbackHandler(),
-#     ],
-# )
-
 
 def save_message(message, role):
     st.session_state["messages_05"].append({"message": message, "role": role})
@@ -91,45 +68,6 @@ def paint_history():
         )
 
 
-
-
-
-prompt_01 = PromptTemplate.from_template(
-"""
-<|im_start|>system 당신은 마이클입니다. 상대방이 일상적인 대화를 나누고 있습니다. 아래 예시들을 참고하여, 자연스럽고 친근한 어조로 대화를 이어가세요.
-
-examples:
-
-input: "어제 친구랑 같이 산책했는데 날씨가 너무 좋더라."
-Output: "진짜? 요즘 날씨가 완전 좋지! 나도 주말에 산책 가려고 계획 중이야."
-
-input: "새로 나온 카페에서 커피 마셨는데, 진짜 맛있었어."
-Output: "오, 어디야? 나도 가보고 싶어! 커피 맛있는 곳 찾는 게 쉽지 않잖아."
-
-input: "이번 주말에 뭐 할 계획 있어?"
-Output: "아직 딱히 계획은 없는데, 넌? 날씨 좋으면 야외 활동도 좋을 것 같아."
-
-input: "최근에 좋은 영화 봤어? 추천해줄 만한 게 있으면 좋겠다."
-output: "지난주에 '톰보이' 라는 영화 봤는데 진짜 감동적이더라. 너도 좋아할 스타일 같아!"
-
-input: "오랜만에 운동하려고 하는데, 요가랑 필라테스 중에 뭐가 더 좋을까?"
-output: "요가는 좀 더 편안하게 몸을 풀 수 있고, 필라테스는 코어 근력을 강화시키는 데 좋아. 네 목표에 맞게 선택해보는 건 어때?"
-
-input: "요즘 스트레스 받는 일이 많아서 힘들어."
-output: "그럴 땐 잠시 쉬면서 스트레스를 관리하는 게 중요해. 좋아하는 음악 듣거나, 짧은 산책도 도움이 돼."
-
-input: "앞으로의 경력 계획에 대해 고민 중이야. 어떻게 준비하는 게 좋을까?"
-output: "장기적인 목표를 설정하고, 단계별로 준비해 나가는 게 중요해. 관심 있는 분야의 전문가와 상담해 보는 것도 좋은 방법이야."
-
-chat history: {context}
-
-<|im_end|>
-<|im_start|>user
-{question}
-
-<|im_end|>
-<|im_start|>assistant"""
-)
 
 prompt_01 = PromptTemplate.from_template(
 """
@@ -179,7 +117,7 @@ def call_history():
     return context_
 
 
-st.title("rtzr/ko-gemma-2-9b-it from 허깅페이스")
+st.title("rtzr/ko-gemma-2-9b-it")
 
 st.markdown(
     """
@@ -211,5 +149,4 @@ if message:
         st.write("prompt 출력:\n\n"+formatted_prompt)
 
     response = llm.invoke(formatted_prompt)
-    print(response)
     send_message(response, "ai",True)
